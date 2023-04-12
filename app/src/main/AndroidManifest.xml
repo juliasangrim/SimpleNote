@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name=".NotesApplication"
         tools:targetApi="31">
         <activity
             android:name=".presentation.MainActivity"
@@ -21,7 +22,6 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".second_activity.SecondActivity" />
     </application>
 
 </manifest>
