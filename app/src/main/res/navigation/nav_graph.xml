@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/noteListFragment"
         android:name="com.trubitsyna.homework.presentation.list.NoteListFragment"
-        android:label="NoteListFragment" />
+        android:label="NoteListFragment" >
+        <action
+            android:id="@+id/action_noteListFragment_to_noteAddFragment"
+            app:destination="@id/noteAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteAddFragment"
+        android:name="com.trubitsyna.homework.presentation.add.NoteAddFragment"
+        android:label="NoteAddFragment" />
 </navigation>

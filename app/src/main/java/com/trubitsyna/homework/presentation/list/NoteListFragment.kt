@@ -2,7 +2,6 @@ package com.trubitsyna.homework.presentation.list
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,11 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.trubitsyna.homework.R
 import com.trubitsyna.homework.databinding.FragmentNotesListBinding
 
-class NoteListFragment: Fragment(R.layout.fragment_notes_list) {
-
-    companion object {
-        private const val MOCK = "Note text that resizes the card vertically to fit itself. It can be very long, but let’s settle on 180 characters as the limit"
-    }
+class NoteListFragment : Fragment(R.layout.fragment_notes_list) {
 
     private val binding by viewBinding(FragmentNotesListBinding::bind)
     private val viewModel by viewModels<NotesListViewModel>()
@@ -27,28 +22,28 @@ class NoteListFragment: Fragment(R.layout.fragment_notes_list) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getNotes()
         with(binding) {
-            toolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
-
-            recyclerView.apply {
+            recyclerViewListNotes.apply {
                 layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
                 adapter = listAdapter.apply {
-                    setCallback { note ->
-                        Toast.makeText(requireContext(), note.text, Toast.LENGTH_SHORT).show()
+                    setSwipeNoteCallback { id ->
+                        viewModel.onDeleteClicked(id)
                     }
+                    //for the future
+//                    val itemTouchHelper = ItemTouchHelper(SwipeDeleteCallback(adapter = this))
+//                    itemTouchHelper.attachToRecyclerView(recyclerViewListNotes)
                 }
-
             }
-
-            floatingActionButton.setOnClickListener {
-                viewModel.onAddClicked(MOCK)
+            floatingActionButtonAdd.setOnClickListener {
+                findNavController().navigate(
+                    NoteListFragmentDirections.actionNoteListFragmentToNoteAddFragment()
+                )
             }
-
         }
+
         viewModel.notesListLiveData.observe(viewLifecycleOwner) {
             listAdapter.submitList(it)
         }
+
     }
 
 }

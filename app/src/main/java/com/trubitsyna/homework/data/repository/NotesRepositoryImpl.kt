@@ -14,4 +14,8 @@ class NotesRepositoryImpl(
     override suspend fun addNotes(text: String) {
         notesDataSource.addNote(text)
     }
+
+    override suspend fun deleteNotes(id: String) {
+        notesDataSource.deleteNote(id)
+    }
 }

@@ -31,6 +31,14 @@ object NotesDataSource {
         notesList.add(Note(text = text))
     }
 
+    suspend fun deleteNote(id: String) {
+        applicationContext?.let { context ->
+            context.dataStore.edit { preferences ->
+                preferences.remove(stringPreferencesKey(id))
+            }
+        }
+    }
+
     fun getNotes(): Flow<List<Note>> {
         return applicationContext?.let { context ->
             context.dataStore.data.map { preferences ->

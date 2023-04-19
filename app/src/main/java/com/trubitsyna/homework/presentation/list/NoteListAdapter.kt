@@ -1,7 +1,6 @@
 package com.trubitsyna.homework.presentation.list
 
 import android.view.LayoutInflater
-import android.view.ScrollCaptureCallback
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,19 +8,21 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.trubitsyna.homework.data.Note
 import com.trubitsyna.homework.databinding.ItemNoteBinding
 
-class NoteListAdapter: ListAdapter<Note, NoteListAdapter.NoteViewHolder>(diffUtil) {
+class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteViewHolder>(diffUtil) {
 
-    private var onNoteClick : (Note) -> Unit = {}
+    private var onSwipeNote: (String) -> Unit = {}
 
-    fun setCallback(callback: (Note) -> Unit) {
-        onNoteClick = callback
+    fun setSwipeNoteCallback(callback: (String) -> Unit) {
+        onSwipeNote = callback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
-            ItemNoteBinding.inflate(LayoutInflater.from(parent.context),
-            parent,
-            false)
+            ItemNoteBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
@@ -29,13 +30,22 @@ class NoteListAdapter: ListAdapter<Note, NoteListAdapter.NoteViewHolder>(diffUti
         holder.bind(getItem(position))
     }
 
+
+    //for the future
+//    fun onSwipeDeleteItem(position: Int) {
+//        val currentElem = currentList[position]
+//        onSwipeNote(currentElem.id)
+//        notifyItemRemoved(position)
+//    }
+
     inner class NoteViewHolder(
         private val binding: ItemNoteBinding
-    ): ViewHolder(binding.root) {
+    ) : ViewHolder(binding.root) {
         fun bind(item: Note) {
             with(binding) {
-                root.setOnClickListener {
-                    onNoteClick(item)
+                root.setOnLongClickListener {
+                    onSwipeNote(item.id)
+                    false
                 }
                 textView.text = item.text
             }
@@ -44,7 +54,7 @@ class NoteListAdapter: ListAdapter<Note, NoteListAdapter.NoteViewHolder>(diffUti
     }
 }
 
-val diffUtil = object: DiffUtil.ItemCallback<Note>() {
+val diffUtil = object : DiffUtil.ItemCallback<Note>() {
     override fun areItemsTheSame(oldItem: Note, newItem: Note) = oldItem.id == newItem.id
 
     override fun areContentsTheSame(oldItem: Note, newItem: Note) = oldItem == newItem
