@@ -2,10 +2,10 @@ package com.trubitsyna.homework.presentation.list.holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.trubitsyna.homework.data.Note
-import com.trubitsyna.homework.databinding.ItemNoteBinding
+import com.trubitsyna.homework.databinding.ItemNoteTextBinding
 
-class NoteViewHolder(
-    private val binding: ItemNoteBinding
+class TextNoteViewHolder(
+    private val binding: ItemNoteTextBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Note, onSwipeNote: (Note) -> Unit) {
         with(binding) {
@@ -13,7 +13,7 @@ class NoteViewHolder(
                 onSwipeNote(item)
                 false
             }
-            textView.text = item.text
+            textViewNoteText.text = item.text
         }
 
     }

@@ -12,7 +12,7 @@
             android:id="@+id/toolbarListNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/menu_note_search"
+            app:menu="@menu/menu_main"
             app:title="@string/app_name"
             app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -20,7 +20,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListNotes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
         android:padding="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

@@ -3,4 +3,5 @@
     <string name="add_image">Add image…</string>
     <string name="add_note_text_hint">New note text goes here…</string>
     <string name="search">Search</string>
+    <string name="search_hint">What are you looking for?</string>
 </resources>

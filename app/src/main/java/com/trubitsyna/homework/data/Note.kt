@@ -1,8 +1,9 @@
 package com.trubitsyna.homework.data
 
-import java.util.UUID
+import android.net.Uri
 
 data class Note(
     val id: Long,
-    val text: String
+    val text: String,
+    val imageUri: Uri?
 )

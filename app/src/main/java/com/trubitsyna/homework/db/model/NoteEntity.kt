@@ -1,11 +1,12 @@
 package com.trubitsyna.homework.db.model
 
-import androidx.room.ColumnInfo
+import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "notes")
 data class NoteEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val text: String
+    @PrimaryKey(autoGenerate = true) val id: Long,
+    val text: String,
+    val imageUri: String?
 )

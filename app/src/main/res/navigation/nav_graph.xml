@@ -11,9 +11,16 @@
         <action
             android:id="@+id/action_noteListFragment_to_noteAddFragment"
             app:destination="@id/noteAddFragment" />
+        <action
+            android:id="@+id/action_noteListFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/noteAddFragment"
         android:name="com.trubitsyna.homework.presentation.add.NoteAddFragment"
         android:label="NoteAddFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.trubitsyna.homework.presentation.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

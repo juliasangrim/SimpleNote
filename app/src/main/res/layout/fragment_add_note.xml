@@ -17,7 +17,7 @@
         android:background="@android:color/transparent"
         android:hint="@string/add_note_text_hint"
         android:inputType="textMultiLine"
-        android:maxLines="10"
+        android:maxLength="@integer/max_input_length"
         android:scrollbars="vertical"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,6 +34,27 @@
         app:chipIcon="@drawable/ic_add_image_18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddNote" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageViewAddImage"
+        android:layout_width="@dimen/imageSizeAddNote"
+        android:layout_height="@dimen/imageSizeAddNote"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAddNote"
+        app:shapeAppearance="@style/RoundedCornerImage" />
+
+    <ImageView
+        android:id="@+id/imageViewCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cancel_24"
+        android:layout_marginEnd="-6dp"
+        android:layout_marginTop="-6dp"
+        app:layout_constraintEnd_toEndOf="@id/imageViewAddImage"
+        app:layout_constraintTop_toTopOf="@id/imageViewAddImage" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonAdd"

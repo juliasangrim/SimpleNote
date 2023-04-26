@@ -1,5 +1,6 @@
 package com.trubitsyna.homework.presentation.list
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,7 +29,9 @@ class NotesListViewModel @Inject constructor(
             getNotesUseCase.execute().collect { list ->
                 _notesListLiveData.value = list.map {
                     it.copy(
-                        text = it.text
+                        id = it.id,
+                        text = it.text,
+                        imageUri = it.imageUri
                     )
                 }
             }
