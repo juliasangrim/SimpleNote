@@ -4,10 +4,10 @@ import com.trubitsyna.homework.data.Note
 import com.trubitsyna.homework.data.repository.NotesRepository
 import com.trubitsyna.homework.data.repository.NotesRepositoryImpl
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class GetNotesUseCase(
-
-    private val notesRepository: NotesRepository = NotesRepositoryImpl()
+class GetNotesUseCase @Inject constructor(
+    private val notesRepository: NotesRepository
 ) {
     fun execute(): Flow<List<Note>> {
         return notesRepository.getNotes()

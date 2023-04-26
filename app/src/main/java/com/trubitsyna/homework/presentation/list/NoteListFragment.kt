@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.trubitsyna.homework.R
 import com.trubitsyna.homework.databinding.FragmentNotesListBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class NoteListFragment : Fragment(R.layout.fragment_notes_list) {
 
     private val binding by viewBinding(FragmentNotesListBinding::bind)
     private val viewModel by viewModels<NotesListViewModel>()
 
-    private val listAdapter = NoteListAdapter()
+    @Inject lateinit var listAdapter: NoteListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,12 +28,9 @@ class NoteListFragment : Fragment(R.layout.fragment_notes_list) {
             recyclerViewListNotes.apply {
                 layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
                 adapter = listAdapter.apply {
-                    setSwipeNoteCallback { id ->
-                        viewModel.onDeleteClicked(id)
+                    setSwipeNoteCallback { note ->
+                        viewModel.onDeleteClicked(note)
                     }
-                    //for the future
-//                    val itemTouchHelper = ItemTouchHelper(SwipeDeleteCallback(adapter = this))
-//                    itemTouchHelper.attachToRecyclerView(recyclerViewListNotes)
                 }
             }
             floatingActionButtonAdd.setOnClickListener {

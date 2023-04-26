@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.trubitsyna.homework.data.Note
 import com.trubitsyna.homework.domain.DeleteNoteUseCase
 import com.trubitsyna.homework.domain.GetNotesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class NotesListViewModel(
-    private val getNotesUseCase: GetNotesUseCase = GetNotesUseCase(),
-    private val deleteNoteUseCase: DeleteNoteUseCase = DeleteNoteUseCase()
+@HiltViewModel
+class NotesListViewModel @Inject constructor(
+    private val getNotesUseCase: GetNotesUseCase ,
+    private val deleteNoteUseCase: DeleteNoteUseCase
 ) : ViewModel() {
 
     private val _notesListLiveData = MutableLiveData<List<Note>>()
@@ -32,10 +35,10 @@ class NotesListViewModel(
         }
     }
 
-    fun onDeleteClicked(id: String) {
+    fun onDeleteClicked(note: Note) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                deleteNoteUseCase.execute(id)
+                deleteNoteUseCase.execute(note)
             }
             getNotes()
         }

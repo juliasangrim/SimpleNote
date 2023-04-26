@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.trubitsyna.homework.data.Note
 import com.trubitsyna.homework.databinding.ItemNoteBinding
+import com.trubitsyna.homework.presentation.list.holder.NoteViewHolder
+import javax.inject.Inject
 
-class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteViewHolder>(diffUtil) {
+class NoteListAdapter @Inject constructor()
+: ListAdapter<Note, NoteViewHolder>(diffUtil) {
 
-    private var onSwipeNote: (String) -> Unit = {}
+    private var onSwipeNote: (Note) -> Unit = {}
 
-    fun setSwipeNoteCallback(callback: (String) -> Unit) {
+    fun setSwipeNoteCallback(callback: (Note) -> Unit) {
         onSwipeNote = callback
     }
 
@@ -27,30 +30,13 @@ class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteViewHolder>(diffUt
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onSwipeNote)
     }
 
-
-    //for the future
-//    fun onSwipeDeleteItem(position: Int) {
-//        val currentElem = currentList[position]
-//        onSwipeNote(currentElem.id)
-//        notifyItemRemoved(position)
-//    }
-
-    inner class NoteViewHolder(
-        private val binding: ItemNoteBinding
-    ) : ViewHolder(binding.root) {
-        fun bind(item: Note) {
-            with(binding) {
-                root.setOnLongClickListener {
-                    onSwipeNote(item.id)
-                    false
-                }
-                textView.text = item.text
-            }
-
-        }
+    fun onSwipeDeleteItem(position: Int) {
+        val currentElem = currentList[position]
+        onSwipeNote(currentElem)
+        notifyItemRemoved(position)
     }
 }
 

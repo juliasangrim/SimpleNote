@@ -8,7 +8,9 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.trubitsyna.homework.R
 import com.trubitsyna.homework.databinding.FragmentAddNoteBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NoteAddFragment: Fragment(R.layout.fragment_add_note) {
 
     private val binding by viewBinding(FragmentAddNoteBinding::bind)
@@ -21,7 +23,7 @@ class NoteAddFragment: Fragment(R.layout.fragment_add_note) {
                 viewModel.onAddClicked(editTextAddNote.text.toString())
                 findNavController().popBackStack()
             }
-            toolbarAddNote.setNavigationOnClickListener {
+            layoutToolbarBack.toolbarAddNote.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
         }

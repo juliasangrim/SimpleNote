@@ -1,12 +1,13 @@
 package com.trubitsyna.homework.domain
 
+import com.trubitsyna.homework.data.Note
 import com.trubitsyna.homework.data.repository.NotesRepository
-import com.trubitsyna.homework.data.repository.NotesRepositoryImpl
+import javax.inject.Inject
 
-class DeleteNoteUseCase(
-    private val noteRepository: NotesRepository = NotesRepositoryImpl()
+class DeleteNoteUseCase @Inject constructor(
+    private val noteRepository: NotesRepository
 ) {
-    suspend fun execute(id: String) {
-        noteRepository.deleteNotes(id)
+    suspend fun execute(note: Note) {
+        noteRepository.deleteNotes(note)
     }
 }

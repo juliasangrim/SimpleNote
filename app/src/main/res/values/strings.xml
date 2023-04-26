@@ -2,4 +2,5 @@
     <string name="app_name">QuickNote</string>
     <string name="add_image">Add image…</string>
     <string name="add_note_text_hint">New note text goes here…</string>
+    <string name="search">Search</string>
 </resources>
