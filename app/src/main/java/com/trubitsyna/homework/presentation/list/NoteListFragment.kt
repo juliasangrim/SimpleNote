@@ -1,23 +1,20 @@
 package com.trubitsyna.homework.presentation.list
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.trubitsyna.homework.R
+import com.trubitsyna.homework.data.model.Note
 import com.trubitsyna.homework.databinding.FragmentNotesListBinding
 import com.trubitsyna.homework.presentation.list.adapter.NoteListAdapter
-import com.trubitsyna.homework.presentation.search.SearchFragment
+import com.trubitsyna.homework.presentation.list.callback.SwipeCallback
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -41,6 +38,7 @@ class NoteListFragment : Fragment(R.layout.fragment_notes_list) {
                         )
                         true
                     }
+
                     else -> false
                 }
             }
@@ -51,6 +49,20 @@ class NoteListFragment : Fragment(R.layout.fragment_notes_list) {
                         viewModel.onDeleteClicked(note)
                     }
                 }
+                val touchHelper = ItemTouchHelper(
+                    SwipeCallback<Note, ViewHolder>(
+                        {
+                            listAdapter.frontLayerSelector(it)
+                        }, {
+                            listAdapter.actionLayerSelector(it)
+                        }, {
+                            listAdapter.keySelector(it)
+                        }, {
+                            listAdapter.onSwipeDeleteItem(it)
+                        }
+                    )
+                )
+                touchHelper.attachToRecyclerView(this)
             }
             floatingActionButtonAdd.setOnClickListener {
                 findNavController().navigate(

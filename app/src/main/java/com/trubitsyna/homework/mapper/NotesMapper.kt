@@ -1,7 +1,7 @@
 package com.trubitsyna.homework.mapper
 
 import androidx.core.net.toUri
-import com.trubitsyna.homework.data.Note
+import com.trubitsyna.homework.data.model.Note
 import com.trubitsyna.homework.db.model.NoteEntity
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,6 +17,6 @@ class NotesMapper @Inject constructor() {
     fun fromUiModelToEntity(note: Note) = NoteEntity(
         id = note.id,
         text = note.text,
-        imageUri = note.imageUri?.path
+        imageUri = note.imageUri?.let { note.imageUri.toString() }
     )
 }

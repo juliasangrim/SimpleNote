@@ -1,4 +1,4 @@
-package com.trubitsyna.homework.presentation
+package com.trubitsyna.homework
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SaveImageUseCase @Inject constructor(
-    private val imageRepository: ImageRepository
+    private val imageRepository: ImageRepository,
 ) {
-    fun execute(uri: Uri): Flow<Uri> {
+    fun execute(uri: Uri): Flow<Uri?> {
         return imageRepository.saveImage(uri)
     }
 }

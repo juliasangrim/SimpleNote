@@ -1,4 +1,4 @@
-package com.trubitsyna.homework.data
+package com.trubitsyna.homework.data.model
 
 import android.net.Uri
 

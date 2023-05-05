@@ -1,7 +1,6 @@
 package com.trubitsyna.homework.data.repository
 
-import android.net.Uri
-import com.trubitsyna.homework.data.Note
+import com.trubitsyna.homework.data.model.Note
 import kotlinx.coroutines.flow.Flow
 
 interface NotesRepository {

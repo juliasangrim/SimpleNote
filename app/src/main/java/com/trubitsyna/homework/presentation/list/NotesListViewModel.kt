@@ -1,11 +1,11 @@
 package com.trubitsyna.homework.presentation.list
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.trubitsyna.homework.data.Note
+import com.trubitsyna.homework.data.model.Note
+import com.trubitsyna.homework.domain.DeleteImageUseCase
 import com.trubitsyna.homework.domain.DeleteNoteUseCase
 import com.trubitsyna.homework.domain.GetNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,13 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesListViewModel @Inject constructor(
-    private val getNotesUseCase: GetNotesUseCase ,
-    private val deleteNoteUseCase: DeleteNoteUseCase
+    private val getNotesUseCase: GetNotesUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val deleteImageUseCase: DeleteImageUseCase,
 ) : ViewModel() {
 
     private val _notesListLiveData = MutableLiveData<List<Note>>()
     val notesListLiveData: LiveData<List<Note>> = _notesListLiveData
-
 
     fun getNotes() {
         viewModelScope.launch {
@@ -42,9 +42,9 @@ class NotesListViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 deleteNoteUseCase.execute(note)
+                note.imageUri?.let { deleteImageUseCase.execute(it) }
             }
             getNotes()
         }
     }
-
 }

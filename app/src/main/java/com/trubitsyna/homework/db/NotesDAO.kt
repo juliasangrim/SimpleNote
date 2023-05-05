@@ -7,12 +7,11 @@ import androidx.room.Query
 import com.trubitsyna.homework.db.model.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface NotesDAO {
 
     @Query("SELECT * FROM notes")
-    fun getNotes() : Flow<List<NoteEntity>>
+    fun getNotes(): Flow<List<NoteEntity>>
 
     @Insert
     fun addNote(note: NoteEntity)

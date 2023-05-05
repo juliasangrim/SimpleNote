@@ -1,6 +1,5 @@
 package com.trubitsyna.homework.db.model
 
-import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -8,5 +7,5 @@ import androidx.room.PrimaryKey
 data class NoteEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val text: String,
-    val imageUri: String?
+    val imageUri: String?,
 )

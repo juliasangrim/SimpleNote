@@ -5,7 +5,7 @@ import com.trubitsyna.homework.data.repository.ImageRepository
 import javax.inject.Inject
 
 class DeleteImageUseCase @Inject constructor(
-    private val imageRepository: ImageRepository
+    private val imageRepository: ImageRepository,
 ) {
     suspend fun execute(uri: Uri) {
         imageRepository.deleteImage(uri)

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.trubitsyna.homework.data.Note
+import com.trubitsyna.homework.data.model.Note
 import com.trubitsyna.homework.domain.GetNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getNotesUseCase: GetNotesUseCase
+    private val getNotesUseCase: GetNotesUseCase,
 ) : ViewModel() {
 
     private val _searchNoteListLiveData = MutableLiveData<List<Note>>()
@@ -30,5 +30,4 @@ class SearchViewModel @Inject constructor(
     fun getAllNotes() {
         return onSearchClicked("")
     }
-
 }
