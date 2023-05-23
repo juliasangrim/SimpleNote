@@ -8,7 +8,7 @@ import javax.inject.Inject
 class SaveImageUseCase @Inject constructor(
     private val imageRepository: ImageRepository,
 ) {
-    fun execute(uri: Uri): Flow<Uri?> {
+    suspend fun execute(uri: Uri): Uri? {
         return imageRepository.saveImage(uri)
     }
 }

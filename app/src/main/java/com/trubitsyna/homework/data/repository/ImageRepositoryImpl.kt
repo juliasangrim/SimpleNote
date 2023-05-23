@@ -6,8 +6,6 @@ import android.util.Log
 import androidx.core.net.toFile
 import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.io.File
 import java.util.UUID
 import javax.inject.Inject
@@ -16,7 +14,8 @@ class ImageRepositoryImpl @Inject constructor(
     @ApplicationContext val context: Context,
 ) : ImageRepository {
 
-    override fun saveImage(uri: Uri): Flow<Uri?> = flow {
+    override suspend fun saveImage(uri: Uri): Uri? {
+        var newUri: Uri? = null
         try {
             val imageFileInternalStorage = File(context.filesDir, UUID.randomUUID().toString())
             if (!imageFileInternalStorage.exists()) {
@@ -25,13 +24,12 @@ class ImageRepositoryImpl @Inject constructor(
                         input?.copyTo(output)
                     }
                 }
-                val newUri = imageFileInternalStorage.toUri()
-                emit(newUri)
+                newUri = imageFileInternalStorage.toUri()
             }
         } catch (e: Exception) {
             Log.e("FileOperations", "Something wrong with files.")
-            emit(null)
         }
+        return newUri
     }
 
     override suspend fun deleteImage(uri: Uri) {

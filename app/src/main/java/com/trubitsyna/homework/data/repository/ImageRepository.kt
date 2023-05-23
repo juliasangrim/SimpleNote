@@ -4,6 +4,6 @@ import android.net.Uri
 import kotlinx.coroutines.flow.Flow
 
 interface ImageRepository {
-    fun saveImage(uri: Uri): Flow<Uri?>
+    suspend fun saveImage(uri: Uri): Uri?
     suspend fun deleteImage(uri: Uri)
 }

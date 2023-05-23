@@ -21,10 +21,6 @@ class NoteAddFragment : Fragment(R.layout.fragment_add_note) {
     private val binding by viewBinding(FragmentAddNoteBinding::bind)
     private val viewModel by viewModels<NoteAddViewModel>()
 
-    companion object {
-        private const val ERROR_MSG = "Add image or text to add note."
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pickMedia =
@@ -55,7 +51,7 @@ class NoteAddFragment : Fragment(R.layout.fragment_add_note) {
                     findNavController().popBackStack()
                 } else {
                     Toast.makeText(
-                        context, ERROR_MSG,
+                        context, getString(R.string.error_msg_add_note),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

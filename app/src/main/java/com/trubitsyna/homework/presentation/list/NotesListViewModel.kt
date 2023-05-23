@@ -39,12 +39,12 @@ class NotesListViewModel @Inject constructor(
     }
 
     fun onDeleteClicked(note: Note) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                deleteNoteUseCase.execute(note)
-                note.imageUri?.let { deleteImageUseCase.execute(it) }
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteNoteUseCase.execute(note)
+            note.imageUri?.let { deleteImageUseCase.execute(it) }
+
             getNotes()
         }
     }
+
 }

@@ -12,7 +12,6 @@ import com.trubitsyna.homework.domain.SaveImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,37 +25,31 @@ class NoteAddViewModel @Inject constructor(
     val imageLiveData: LiveData<Uri?> = _imageLiveData
 
     fun saveImageInternalStorage(imageUri: Uri) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                saveImageUseCase.execute(imageUri).collect { it ->
-                    _imageLiveData.postValue(it)
-                }
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = saveImageUseCase.execute(imageUri)
+            _imageLiveData.postValue(result)
+
         }
     }
 
     fun deleteImageInternalStorage() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _imageLiveData.value?.let {
-                    deleteImageUseCase.execute(it)
-                }
-                _imageLiveData.postValue(null)
+        viewModelScope.launch(Dispatchers.IO) {
+            _imageLiveData.value?.let {
+                deleteImageUseCase.execute(it)
             }
+            _imageLiveData.postValue(null)
         }
     }
 
     fun onAddClicked(text: String) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                addNoteUseCase.execute(
-                    Note(
-                        id = 0,
-                        text = text,
-                        imageUri = _imageLiveData.value
-                    )
+        viewModelScope.launch(Dispatchers.IO) {
+            addNoteUseCase.execute(
+                Note(
+                    id = 0,
+                    text = text,
+                    imageUri = _imageLiveData.value
                 )
-            }
+            )
         }
     }
 
